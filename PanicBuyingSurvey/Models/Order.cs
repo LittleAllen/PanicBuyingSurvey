@@ -2,7 +2,10 @@ namespace PanicBuyingSurvey.Models
 {
     public class Order 
     {
-        public int id { get; set;}
-        public int stock { get; set;}
+        //product id
+        public int PId { get; set;}
+        public int Stock { get; set;}
+        //user id
+        public int UId { get; set;}
     }
 }

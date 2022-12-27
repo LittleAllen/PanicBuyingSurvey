@@ -22,7 +22,7 @@ namespace PanicBuyingSurvey.Controllers
         {
             try{
                 logger.LogInformation(JsonSerializer.Serialize(order));
-                productService.Shopping(order.id, order.stock);
+                productService.Shopping(order.PId, order.Stock);
             }
             catch(Exception ex) {
                 logger.LogError($"{nameof(Shopping)}",ex);
