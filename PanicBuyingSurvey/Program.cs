@@ -1,4 +1,5 @@
 using PanicBuyingSurvey.DataLayer;
+using PanicBuyingSurvey.Middlewares;
 using PanicBuyingSurvey.Services;
 using Serilog;
 
@@ -34,6 +35,8 @@ internal class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
+        
+        app.UseMiddleware<ErrorHandlerMiddleware>();
 
         app.MapControllers();
 

@@ -33,9 +33,9 @@
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-	&quot;PId&quot;:1,&#xd;
-	&quot;UId&quot;:${__V(${__counter(FALSE,)})},&#xd;
-	&quot;Stock&quot;:1&#xd;
+  &quot;PId&quot;:1,&#xd;
+  &quot;UId&quot;:${__V(${__counter(FALSE,)})},&#xd;
+  &quot;Stock&quot;:1&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
