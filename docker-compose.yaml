@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx
+    ports: 
+      - "8000:80"
+    volumes: 
+      - './config/nginx.conf:/etc/nginx/nginx.conf'
+    networks: 
+      - app-net
+    depends_on: 
+      - app1
+      - app2
+      - app3
+  app1: 
+    image: panicbuyingsurvey
+    build: ./PanicBuyingSurvey
+    networks:
+      - app-net
+    secrets:
+      - source: db-connection
+        target: /app/config/secret.json
+    volumes:
+      - './Logs/app1:/app/Logs'
+    depends_on:
+      - db
+  app2: 
+    image: panicbuyingsurvey
+    build: ./PanicBuyingSurvey
+    networks:
+      - app-net
+    secrets:
+      - source: db-connection
+        target: /app/config/secret.json
+    volumes:
+      - './Logs/app2:/app/Logs'
+    depends_on:
+      - db
+  app3: 
+    image: panicbuyingsurvey
+    build: ./PanicBuyingSurvey
+    networks:
+      - app-net
+    secrets:
+      - source: db-connection
+        target: /app/config/secret.json
+    volumes:
+      - './Logs/app3:/app/Logs'
+    depends_on:
+      - db
+  db:
+    image: fzr7425/my_postgre_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'db-data:/var/lib/postgresql/data'
+    env_file:
+      - './env/postgre.env'
+    networks:
+      - 'app-net'
+secrets:
+  db-connection:
+    file: ./config/secret.json
+
+networks:
+  app-net:
+volumes:
+  db-data:  
+    
