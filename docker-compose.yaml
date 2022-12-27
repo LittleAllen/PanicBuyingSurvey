@@ -8,7 +8,7 @@ services:
     volumes: 
       - './config/nginx.conf:/etc/nginx/nginx.conf'
     networks: 
-      - app-net
+      - frontend
     depends_on: 
       - app1
       - app2
@@ -17,7 +17,8 @@ services:
     image: panicbuyingsurvey
     build: ./PanicBuyingSurvey
     networks:
-      - app-net
+      - frontend
+      - backend
     secrets:
       - source: db-connection
         target: /app/config/secret.json
@@ -29,7 +30,8 @@ services:
     image: panicbuyingsurvey
     build: ./PanicBuyingSurvey
     networks:
-      - app-net
+      - frontend
+      - backend
     secrets:
       - source: db-connection
         target: /app/config/secret.json
@@ -41,7 +43,8 @@ services:
     image: panicbuyingsurvey
     build: ./PanicBuyingSurvey
     networks:
-      - app-net
+      - frontend
+      - backend
     secrets:
       - source: db-connection
         target: /app/config/secret.json
@@ -58,13 +61,15 @@ services:
     env_file:
       - './env/postgre.env'
     networks:
-      - 'app-net'
+      - backend
 secrets:
   db-connection:
     file: ./config/secret.json
 
 networks:
-  app-net:
+  frontend:
+  backend:
+
 volumes:
   db-data:  
     
