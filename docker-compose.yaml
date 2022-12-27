@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  api: 
+    image: panicbuyingsurvey
+    build: ./PanicBuyingSurvey
+    ports:
+      - '8080:80'
+      - '8081:443'
+    networks:
+      - app-net
+    secrets:
+      - source: db-connection
+        target: /app/config/secret.json
+    volumes:
+      - './Logs:/app/Logs'
+  db:
+    image: fzr7425/my_postgre_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'db-data:/var/lib/postgresql/data'
+    env_file:
+      - './env/postgre.env'
+    networks:
+      - 'app-net'
+secrets:
+  db-connection:
+    file: ./config/secret.json
+
+networks:
+  app-net:
+volumes:
+  db-data:  
+    
