@@ -4,6 +4,7 @@ namespace PanicBuyingSurvey.Services;
 
 public class ProductService : IProductService
 {
+    private static readonly object shoppingLock = new object();
     private IProductDataLayer productData { get; set; }
 
     public ProductService(IProductDataLayer productData)
@@ -22,14 +23,26 @@ public class ProductService : IProductService
             throw new Exception("product not exist");
         }
 
-        if (quantity > product.stock)
+        if (quantity <= product.stock)
         {
-            throw new Exception("over stock");
+            lock (shoppingLock)
+            {
+                if (quantity <= product.stock)
+                {
+                    //// update stock
+                    product.stock -= quantity;
+                    productData.UpdateStock(product);
+                }
+                else
+                {
+                    throw new Exception("second stock check fail");
+                }
+            }
         }
-
-        //// update stock
-        product.stock -= quantity;
-        productData.UpdateStock(product);
+        else
+        {
+            throw new Exception("fist stock check fail");
+        }
     }
 
 }
