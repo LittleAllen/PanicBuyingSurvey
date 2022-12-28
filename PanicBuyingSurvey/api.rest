@@ -1,0 +1,8 @@
+POST https://localhost:7064/PanicBuying HTTP/1.1
+content-type: application/json
+
+{
+  "pId": 1,
+  "stock": 1,
+  "uId": 1
+}
