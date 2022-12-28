@@ -20,14 +20,8 @@ namespace PanicBuyingSurvey.Controllers
         [HttpPost(Name = "Shopping")]
         public void Shopping(Order order)
         {
-            try{
-                logger.LogInformation(JsonSerializer.Serialize(order));
-                productService.Shopping(order.PId, order.Stock);
-            }
-            catch(Exception ex) {
-                logger.LogError($"{nameof(Shopping)}",ex);
-                throw;
-            }
+            logger.LogInformation(JsonSerializer.Serialize(order));
+            productService.Shopping(order.PId, order.Stock);
         }
     }
 }
