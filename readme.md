@@ -1,4 +1,4 @@
-docker-compose up -d
+docker-compose up -d --build (--build強制rebuild image)
 
 連進db connetion在(config/secret.json)
 
