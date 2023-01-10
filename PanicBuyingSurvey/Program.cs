@@ -2,7 +2,11 @@ using PanicBuyingSurvey.DataLayer;
 using PanicBuyingSurvey.Filters;
 using PanicBuyingSurvey.Middlewares;
 using PanicBuyingSurvey.Services;
+using RedLockNet.SERedis;
+using RedLockNet.SERedis.Configuration;
 using Serilog;
+using StackExchange.Redis;
+using System.Net;
 
 internal class Program
 {
@@ -23,7 +27,14 @@ internal class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-
+        var multiplexers = new List<RedLockEndPoint>
+        {
+            new DnsEndPoint("localhost", 6379),
+            new DnsEndPoint("localhost", 6380),
+            new DnsEndPoint("localhost", 6381)
+        };
+        var factory = RedLockFactory.Create(multiplexers);
+        builder.Services.AddSingleton<RedLockFactory>(factory);
 
 
         var app = builder.Build();
