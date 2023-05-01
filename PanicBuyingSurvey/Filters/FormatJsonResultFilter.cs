@@ -10,6 +10,14 @@ namespace PanicBuyingSurvey.Filters
 
         }
 
+        public async Task OnActionExecutionAsync(ActionExecutingContext context, 
+                                         ActionExecutionDelegate next)
+        {
+
+            var resultContext = await next(); 
+            FormatJsonResponse(resultContext);
+        }
+
         public void OnActionExecuted(ActionExecutedContext context)
         {
             FormatJsonResponse(context);
